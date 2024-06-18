@@ -20,5 +20,17 @@ Before using the model, it is critical to make that images are suitable for mode
 ### Visual checklist examples:
 Make sure that your images *do not* look like these before using the classifier!
 
-Individual grains only? 
-<img src="./Checklist_images/Scale_bars/scale_bar.png" width="100" height="100">
+1. Is there only one grain per image?  
+<img src="./Checklist_images/Multiple_grains/FF01i_0074_annotated.png" width="312.5" height="250">
+<img src="./Checklist_images/Multiple_grains/a16-64455-thin_0037_annotated.png" width="312.5" height="250">
+
+2. Do your images contain scale bars?  
+<img src="./Checklist_images/Scale_bars/scale_bar.png" width="500" height="400">
+
+3. Are the grain surfaces obscured by diagenesis?
+<img src="./Checklist_images/Overgrowth/Dino_cyn_5_postHCl_10_13_23_0003_annotated.png" width="500" height="400">
+<img src="./Checklist_images/Overgrowth/Dino_cyn_5_postHCl_10_13_23_0004_annotated.png" width="500" height="400">
+
+4. Are the grain surfaces obscured by the sample preparation procedure?
+<img src="./Checklist_images/Coatings/4_annotated.png" width="500" height="400">
+<img src="./Checklist_images/Coatings/91_annotated.png" width="500" height="400">
