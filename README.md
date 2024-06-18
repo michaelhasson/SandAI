@@ -17,5 +17,8 @@ Before using the model, it is critical to make that images are suitable for mode
 3. No scale bars.
 4. The original grain shapes and textures must be present. If they have been obscured by diagenesis (e.g., silica cementation) or the sample preparation procedure, they will not produce valid results.
 
+### Visual checklist examples:
+Make sure that your images *do not* look like these before using the classifier!
 
-
+Individual grains only? 
+![plot](./Checklist_images/Scale_bars/scale_bar.png)
