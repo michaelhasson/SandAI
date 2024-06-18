@@ -21,4 +21,4 @@ Before using the model, it is critical to make that images are suitable for mode
 Make sure that your images *do not* look like these before using the classifier!
 
 Individual grains only? 
-![plot](./Checklist_images/Scale_bars/scale_bar.png)
+<img src="./Checklist_images/Scale_bars/scale_bar.png" width="100" height="100">
