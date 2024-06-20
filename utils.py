@@ -78,6 +78,8 @@ def make_predictions(sample, imagedataset, imagedl, model_path, csv_path, confid
     checkpoint = torch.load(cp_filepath, map_location=torch.device('cpu'))
     model.load_state_dict(checkpoint['model_state_dict'])
 
+    model.to(device)
+
     # Switch to eval mode
     model.eval()
 
