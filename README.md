@@ -51,6 +51,6 @@ Make sure that your images *do not* look like these before using the classifier!
 <table>
   <tr>
     <td><img src="./Checklist_images/Coatings/4_annotated.png" width="375" height="300"></td>
-    <td><img src="./Checklist_images/Coatings/=91_annotated.png" width="375" height="300"></td>
+    <td><img src="./Checklist_images/Coatings/91_annotated.png" width="375" height="300"></td>
   </tr>
 </table>
