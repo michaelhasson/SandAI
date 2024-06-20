@@ -20,21 +20,6 @@ import os
 import random
 from collections import Counter
 
-# Device configuration
-device = torch.device("cpu")
-# if torch.cuda.is_available():    
-#     print('There are %d GPU(s) available.' % torch.cuda.device_count())
-#     print('We will use the GPU:', torch.cuda.get_device_name(0))
-
-# Image transformation
-img_height = 224
-img_width = 224
-transform = transforms.Compose([
-    transforms.Resize((img_height, img_width)),
-    transforms.RandomEqualize(p=1),
-    transforms.ToTensor(),
-])
-
 class CustomDataset(Dataset):
     def __init__(self, filenames, transform=None):
         self.filenames = filenames
@@ -58,6 +43,21 @@ class CustomDataset(Dataset):
 
 def make_predictions(sample, imagedataset, imagedl, model_path, csv_path, confidence_threshold=0.75):
     print(f'Predicting on sample {sample}')
+    
+    # Device configuration
+    device = torch.device("cpu")
+    # if torch.cuda.is_available():    
+    #     print('There are %d GPU(s) available.' % torch.cuda.device_count())
+    #     print('We will use the GPU:', torch.cuda.get_device_name(0))
+
+    # Image transformation
+    img_height = 224
+    img_width = 224
+    transform = transforms.Compose([
+        transforms.Resize((img_height, img_width)),
+        transforms.RandomEqualize(p=1),
+        transforms.ToTensor(),
+    ])
     
     # Set class names
     class_names = {0: 'Eolian', 1: 'Glacial', 2: 'Beach', 3: 'Fluvial'}
