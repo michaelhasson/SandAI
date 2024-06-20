@@ -11,7 +11,9 @@ Included are:
 
 ## Using the tool:
 
-Using the tool is very simple: click this button to open the inference software in Google Colab [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/michaelhasson/microtextures/blob/main/Inference_notebook_Colab.ipynb)
+Using the tool is very simple: click this button to open the inference software in Google Colab [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/michaelhasson/microtextures/blob/main/Inference_notebook_Colab.ipynb) 
+
+Google Colab is a free service that will let you quickly infer the classes of your images. No coding, downloading, or configuration is required. Simply click the button and follow the instructions inside.
 
 From the Colab notebook, simply hit shift-enter or click the play buttons on each cell. This will run a demonstration of the expected outputs. 
 
@@ -23,14 +25,22 @@ Be sure to look through the checklist (below and in the inference notebook) to m
 
 Before using the model, it is critical to make that images are suitable for model inference. Failure to do so will lead to inaccurate results. The requirements are:
 1. Sand must be from terrestrial environments (eolian, glacial, beach, or fluvial).
-2. Individual grains only -- there can only be one sand grain per image.
-3. No scale bars.
+2. No scale bars.
+3. Individual grains only -- there can only be one sand grain per image.
 4. The original grain shapes and textures must be present. If they have been obscured by diagenesis (e.g., silica cementation) or the sample preparation procedure, they will not produce valid results.
 
 ### Visual checklist examples:
 Make sure that your images *do not* look like these before using the classifier!
 
-1. Is there only one grain per image?
+1. Do your images contain scale bars?
+
+<table>
+  <tr>
+    <td><img src="./Checklist_images/Scale_bars/scale_bar.png" width="375" height="300"></td>
+  </tr>
+</table>
+
+2. Is there only one grain per image?
 
 <table>
   <tr>
@@ -39,15 +49,7 @@ Make sure that your images *do not* look like these before using the classifier!
   </tr>
 </table>
 
-2. Do your images contain scale bars?
-
-<table>
-  <tr>
-    <td><img src="./Checklist_images/Scale_bars/scale_bar.png" width="375" height="300"></td>
-  </tr>
-</table>
-
-4. Are the grain surfaces obscured by diagenesis?
+3. Are the grain surfaces obscured by diagenesis?
 
 <table>
   <tr>
@@ -56,7 +58,7 @@ Make sure that your images *do not* look like these before using the classifier!
   </tr>
 </table>
 
-6. Are the grain surfaces obscured by the sample preparation procedure?
+4. Are the grain surfaces obscured by the sample preparation procedure?
 
 <table>
   <tr>
