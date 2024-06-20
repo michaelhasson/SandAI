@@ -20,6 +20,17 @@ import os
 import random
 from collections import Counter
 
+# Image transformation
+img_height = 224
+img_width = 224
+
+transform = transforms.Compose([
+    transforms.Resize((img_height, img_width)),
+    transforms.RandomEqualize(p=1),
+    transforms.ToTensor(),
+])
+
+
 class CustomDataset(Dataset):
     def __init__(self, filenames, transform=None):
         self.filenames = filenames
@@ -46,15 +57,6 @@ def make_predictions(sample, imagedataset, imagedl, model_path, csv_path, confid
     
     # Device configuration
     device = torch.device("cpu")
-
-    # Image transformation
-    img_height = 224
-    img_width = 224
-    transform = transforms.Compose([
-        transforms.Resize((img_height, img_width)),
-        transforms.RandomEqualize(p=1),
-        transforms.ToTensor(),
-    ])
     
     # Set class names
     class_names = {0: 'Eolian', 1: 'Glacial', 2: 'Beach', 3: 'Fluvial'}
