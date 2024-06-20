@@ -9,6 +9,16 @@ Included are:
 - Tutorials for use with example outputs
 - All code related to training and evaluating the model used in this study
 
+## Using the tool:
+
+Using the tool is very simple: click this button to open the inference software in Google Colab [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/michaelhasson/microtextures/blob/main/Inference_notebook_Colab.ipynb)
+
+From the Colab notebook, simply hit shift-enter or click the play buttons on each cell. This will run a demonstration of the expected outputs. 
+
+To classify your own images, simply upload them to Google Colab and change the path and name of the sample. A new CSV file of model predictions will be saved in the "Predictions" folder that you can then download to your local computer. 
+
+Be sure to look through the checklist (below and in the inference notebook) to make sure that your images meet the requirements for classification!
+
 ## Checklist
 
 Before using the model, it is critical to make that images are suitable for model inference. Failure to do so will lead to inaccurate results. The requirements are:
