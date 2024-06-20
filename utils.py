@@ -45,11 +45,13 @@ def make_predictions(sample, imagedataset, imagedl, model_path, csv_path, confid
     print(f'Predicting on sample {sample}')
     
     # Device configuration
-    device = torch.device("cpu")
-    # if torch.cuda.is_available():    
-    #     print('There are %d GPU(s) available.' % torch.cuda.device_count())
-    #     print('We will use the GPU:', torch.cuda.get_device_name(0))
-
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    if torch.cuda.is_available():    
+        print('There are %d GPU(s) available.' % torch.cuda.device_count())
+        print('We will use the GPU:', torch.cuda.get_device_name(0))
+    else:
+        print('No GPU available, using the CPU instead.')
+    
     # Image transformation
     img_height = 224
     img_width = 224
@@ -75,18 +77,14 @@ def make_predictions(sample, imagedataset, imagedl, model_path, csv_path, confid
 
     # Load checkpoint
     cp_filepath = model_path
-    checkpoint = torch.load(cp_filepath, map_location=torch.device('cpu'))
+    checkpoint = torch.load(cp_filepath, map_location=device)
     model.load_state_dict(checkpoint['model_state_dict'])
-
+    
+    # Move model to the device
     model.to(device)
 
-    # Switch to eval mode
+    # Put the model in evaluation mode
     model.eval()
-
-    # Set the CSV export path 
-    csv_path = csv_path
-
-    confidence_threshold = confidence_threshold
 
     predictions, probabilities, filtered_filenames_list = [], [], []
 
