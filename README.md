@@ -17,7 +17,7 @@ Google Colab is a free service that will let you quickly infer the classes of yo
 
 From the Colab notebook, simply hit shift-enter or click the play buttons on each cell. This will run a demonstration of the expected outputs. 
 
-To classify your own images, simply upload them to Google Colab and change the path and name of the sample. A new CSV file of model predictions will be saved in the "Predictions" folder that you can then download to your local computer. 
+To classify your own images, upload them to Google Colab and change the path and name of the sample. A new CSV file of model predictions will be saved in the "Predictions" folder that you can then download to your local computer. 
 
 Be sure to look through the checklist (below and in the inference notebook) to make sure that your images meet the requirements for classification!
 
