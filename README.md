@@ -11,7 +11,7 @@ Included are:
 
 ## Using the tool:
 
-Using the tool is very simple: click this button to open the inference software in Google Colab: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/michaelhasson/microtextures/blob/main/Inference_notebook_Colab.ipynb) 
+Using the tool is very simple. Click this button to open the inference software in Google Colab: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/michaelhasson/microtextures/blob/main/Inference_notebook_Colab.ipynb) 
 
 Google Colab is a free service that will let you quickly infer the classes of your images. No coding, downloading, or configuration is required. Simply click the button and follow the instructions inside.
 
