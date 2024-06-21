@@ -128,16 +128,26 @@ def make_predictions(sample, imagedataset, imagedl, model_path, csv_path, confid
     }
     main_df = pd.DataFrame(main_data)
 
-    # Create dataframe of summary info
+    # Create summary data
     summary_data = {
-        **{key: [''] for key in main_data.keys()},  # Empty strings for main data columns
-        **{key: [value] for key, value in class_counts.items()},
-        **{key: [value] for key, value in class_percentages.items()}
+        'Eolian_count': [class_counts.get('Eolian_count', '')],
+        'Glacial_count': [class_counts.get('Glacial_count', '')],
+        'Beach_count': [class_counts.get('Beach_count', '')],
+        'Fluvial_count': [class_counts.get('Fluvial_count', '')],
+        'Eolian_percentage': [class_percentages.get('Eolian_percentage', '')],
+        'Glacial_percentage': [class_percentages.get('Glacial_percentage', '')],
+        'Beach_percentage': [class_percentages.get('Beach_percentage', '')],
+        'Fluvial_percentage': [class_percentages.get('Fluvial_percentage', '')]
     }
-    summary_df = pd.DataFrame(summary_data, index=[0])  # Creating a single summary row
 
-    # Add summary df to main df
-    final_df = pd.concat([main_df, summary_df], ignore_index=True)
+    
+    # Expand the summary data to have the same number of rows as main_df
+    summary_df = pd.DataFrame(summary_data)
+    for col in summary_df.columns:
+        summary_df[col] = pd.concat([summary_df[col], pd.Series([''] * (len(main_df) - 1))], ignore_index=True)
+        
+    # Concatenate the dataframes horizontally
+    final_df = pd.concat([main_df, summary_df], axis=1)
 
     final_df.to_csv(csv_path, index=False)
     print(f'Saved CSV at: {csv_path}')
