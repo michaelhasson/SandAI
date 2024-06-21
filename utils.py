@@ -140,7 +140,6 @@ def make_predictions(sample, imagedataset, imagedl, model_path, csv_path, confid
         'Fluvial_percentage': [class_percentages.get('Fluvial_percentage', '')]
     }
 
-    
     # Expand the summary data to have the same number of rows as main_df
     summary_df = pd.DataFrame(summary_data)
     for col in summary_df.columns:
