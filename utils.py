@@ -121,10 +121,10 @@ def make_predictions(sample, imagedataset, imagedl, model_path, csv_path, confid
     class_percentages = {f'{name}_percentage': (count_dict[name] / total_predictions * 100) if total_predictions > 0 else 0 for name in class_names.values()}
 
     # Create df for exporting 
-    main_data = {
-        'filename': filtered_filenames_list,
-        'predictions': predictions_named,
-        'probabilities': probabilities
+    summary_data = {
+        **{key: [''] for key in main_data.keys()},  # Empty strings for main data columns
+        **{key: [value] for key, value in class_counts.items()},
+        **{key: [value] for key, value in class_percentages.items()}
     }
     main_df = pd.DataFrame(main_data)
 
