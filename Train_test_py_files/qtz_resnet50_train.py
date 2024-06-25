@@ -25,7 +25,6 @@ from tqdm import tqdm
 
 # Hyperparameters:
 num_epochs = 100
-# learn_rate = 1e-3
 learn_rate = 1e-4
 
 '''Class setup: 0 = aeolian, 1 = glacial, 2 = beach, 3 = fluvial'''
@@ -70,20 +69,10 @@ percentile_stretch_transform = PercentileStretchTransform(lower_percentile=5, up
 
 #### Transforms for resnet50
 transform = Compose([
-    # Lambda(lambda img: img.crop((0, 0, img.width, img.height - 200))),
-    # Resize([256]),
     Resize([img_height, img_width]),    
-    # RandomCenterCrop(output_size, crop_percentage, resize_size),
-    # RandomHorizontalFlip(),
-    # RandomVerticalFlip(),
-    # IncrementalRotate(180),  # up to 180 degrees
     RandomRotation(degrees=(0,360)),
     RandomAdjustSharpness(sharpness_factor=0.2),
-    # ColorJitter(brightness=[0.4,1.6], contrast=[0.4, 1.6]),  # fine-tune these parameters
-    # ColorJitter(brightness=0.5, contrast=0.5),  # fine-tune these parameters
-    # CenterCrop(size=(112,112)),
     RandomEqualize(p=1),
-    # percentile_stretch_transform,
     ToTensor(),
 ])
 
@@ -329,7 +318,7 @@ for epoch in range(start_epoch, num_epochs):
             'val_precision_history': val_precision_history,
             'val_recall_history': val_recall_history,
             # 'val_prc_history':val_prc_history
-            }, "D:/Michael/Quartz_classifier/model/model_checkpoints/4_4/4_4_best_loss_model_7_PR.pth")
+            }, "D:/Michael/Quartz_classifier/model/model_checkpoints/4_4/4_4_best_loss.pth")
 
     if val_epoch_accuracy > best_accuracy:
         print(f'Saving model.  Validation accuracy: {val_epoch_accuracy:.4f} improved over previous {best_accuracy:.4f}')
@@ -349,7 +338,7 @@ for epoch in range(start_epoch, num_epochs):
             'val_precision_history': val_precision_history,
             'val_recall_history': val_recall_history,
             # 'val_prc_history':val_prc_history
-            }, "D:/Michael/Quartz_classifier/model/model_checkpoints/4_4/4_4_best_accuracy_model_7_PR.pth")
+            }, "D:/Michael/Quartz_classifier/model/model_checkpoints/4_4/4_4_best_accuracy.pth")
 
     # torch.save({
     #     'epoch': epoch,

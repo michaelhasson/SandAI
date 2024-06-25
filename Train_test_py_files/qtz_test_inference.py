@@ -22,19 +22,9 @@ if torch.cuda.is_available():
     print('There are %d GPU(s) available.' % torch.cuda.device_count())
     print('We will use the GPU:', torch.cuda.get_device_name(0))
 
-## 3_26 includes Namibia. 3_27 includes Namibia but not Antarctic eolian samples. 
-    
-# train_path = r"D:\Michael\Quartz_classifier\data\qtz_all_modern_3_26_no_miss_no_braz_oversampled\train"
-# val_path = r"D:\Michael\Quartz_classifier\data\qtz_all_modern_3_26_no_miss_no_braz_oversampled\val"
-# test_path = r"D:\Michael\Quartz_classifier\data\qtz_all_modern_3_26_no_miss_no_braz_oversampled\test"
-
-train_path = r"D:\Michael\Quartz_classifier\data\4_4_datasets\train_7"
-val_path = r"D:\Michael\Quartz_classifier\data\4_4_datasets\val_7"
-test_path = r"D:\Michael\Quartz_classifier\data\4_4_datasets\test_7"
-
-# train_path = r"D:\Michael\Quartz_classifier\data\4_4\train"
-# val_path = r"D:\Michael\Quartz_classifier\data\4_4\val"
-# test_path = r"D:\Michael\Quartz_classifier\data\4_4\test"
+train_path = r"D:\Michael\Quartz_classifier\data\4_4\train"
+val_path = r"D:\Michael\Quartz_classifier\data\4_4\val"
+test_path = r"D:\Michael\Quartz_classifier\data\4_4\test"
 
 
 img_height = 224
@@ -43,17 +33,9 @@ img_width = 224
 num_classes = 4
 
 transform = Compose([
-    # Lambda(lambda img: img.crop((0, 0, img.width, img.height - 200))),
     Resize((img_height, img_width)),
-    # RandomHorizontalFlip(),
-    # RandomVerticalFlip(),
-    # IncrementalRotate(180),  # up to 180 degrees
-    # # ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),  # fine-tune these parameters
-    # RandomAutocontrast(0.2),  # consider a probability for this
-    # # RandomInvert(0.2),  # consider a probability for this
     RandomEqualize(p=1),
     ToTensor(),
-    # Normalize(mean=[0.5], std=[0.5])
 ])
 
 def try_load(path):
@@ -76,13 +58,9 @@ test_loader = DataLoader(dataset=test_dataset, batch_size=1, shuffle=False)
 class_sample_count = np.unique(train_dataset.targets, return_counts=True)[1]
 criterion = nn.CrossEntropyLoss()
 
-def predictions_stats(res_num, split, best_stat):
-    # res_num: '18', '50'
-    # dataset: 'tilewise', 'basinwise'
-    # split: 'train', 'val', 'test'
-    # best_stat: 'loss', 'prc'
+def predictions_stats(split, best_stat):
     
-    print(f'Predicting with best {best_stat} ResNet-{res_num} on {split} set')
+    print(f'Predicting with best {best_stat} on {split} set')
     
     if split == 'train':
         dataset = train_dataset
@@ -97,8 +75,6 @@ def predictions_stats(res_num, split, best_stat):
         return
 
     # Load model
-    # cp_filepath = r"D:\Michael\Quartz_classifier\model\model_checkpoints\keeper_models\qtz_all_modern_11_8_best_loss_model.pth"
-    # cp_filepath = r"D:\Michael\Quartz_classifier\model\model_checkpoints\keeper models\qtz_all_modern_3_26_no_braz_oversampled_best_loss_model_1.pth"
     cp_filepath = r"D:\Michael\Quartz_classifier\Final paper materials\model\qtz_final_model.pth"
 
 
@@ -160,12 +136,7 @@ def predictions_stats(res_num, split, best_stat):
         df.to_csv(f'D:/Michael/Quartz_classifier/Final paper materials/final_predictions/Train_val_test_preds/{split}_predictions_with_confidence_threshold_final.csv', index=False)
 
         print(f'Saved csv at: D:/Michael/Quartz_classifier/Final paper materials/final_predictions/Train_val_test_preds/{split}_predictions_with_confidence_threshold_final.csv')
-        # # Save low confidence predictions
 
-        # low_conf_df = pd.DataFrame({'filename': low_confidence_filenames, 'predictions': low_confidence_predictions, 'actuals': low_confidence_actuals})
-        # low_conf_df.to_csv(f'D:/Michael/Quartz_classifier/predictions/multiclass_predictions/modern_and_ancient_{split}_low_confidence.csv', index=False)
-        # print(f'Saved csv at: D:/Michael/Quartz_classifier/predictions/multiclass_predictions/modern_and_ancient_{split}_low_confidence.csv')
-            
     all_predictions = np.array(predictions)
     all_actuals = np.array(actuals)
 
@@ -182,42 +153,6 @@ def predictions_stats(res_num, split, best_stat):
         true_positive = conf_matrix[class_idx, class_idx]
     
     print('class_idx', class_idx)
-
-    # # Print class-wise metrics
-    # for class_idx, metrics in classwise_metrics.items():
-    #     print(f"Class {class_idx}: Precision {metrics['precision']:.4f}, Recall {metrics['recall']:.4f}, F1-Score {metrics['f1_score']:.4f}")
-
-
-    #     per_class_accuracy = []
-    #     class_labels = [0, 1, 2, 3]
-
-    #     for label in class_labels:
-    #         actuals_arr = np.array(actuals) 
-    #         class_indices = np.where(actuals_arr == label)[0] 
-    #         class_indices = class_indices.tolist()
-            
-    #         class_preds = [predictions[i] for i in class_indices]
-            
-    #         class_actuals = [actuals[i] for i in class_indices]
-            
-    #         class_acc = accuracy_score(class_actuals, class_preds)
-    #         per_class_accuracy.append(class_acc)
-
-    #     # accuracy = accuracy_score(filtered_labels, filtered_preds)
-    #     # precision = precision_score(filtered_labels, filtered_preds, average='macro')
-    #     # recall = recall_score(filtered_labels, filtered_preds, average='macro')
-    #     # f1 = f1_score(filtered_labels, filtered_preds, average='macro')
-
-    #     accuracy = accuracy_score(actuals, predictions)
-    #     precision = precision_score(actuals, predictions, average='macro')
-    #     recall = recall_score(actuals, predictions, average='macro')
-    #     f1 = f1_score(actuals, predictions, average='macro')
-
-    #     print(f'{split.capitalize()} Accuracy: {accuracy:.4f}')
-    #     print(f'{split.capitalize()} Precision: {precision:.4f}')
-    #     print(f'{split.capitalize()} Recall: {recall:.4f}')
-    #     print(f'{split.capitalize()} F1-Score: {f1:.4f}')
-    #     print(f'{split.capitalize()} Per-class accuracy (aeolian, glacial, beach, fluvial): {*per_class_accuracy,}')
     
     per_class_accuracy = []
     class_labels = [0, 1, 2, 3]
@@ -248,22 +183,11 @@ def predictions_stats(res_num, split, best_stat):
 # RESNET-50
 
 model = models.resnet50()
-# model = models.resnet101()
 num_features = model.fc.in_features
 model.fc = nn.Linear(num_features, 4)
 model = model.to(device)
 
-predictions_stats(res_num=50, split='train', best_stat='loss')
-predictions_stats(res_num=50, split='val', best_stat='loss')
-predictions_stats(res_num=50, split='test', best_stat='loss')
-
-# # ResNet-101
-# model = models.resnet101()
-# num_features = model.fc.in_features
-# model.fc = nn.Linear(num_features, 4)
-# model = model.to(device)
-
-# predictions_stats(res_num=101, split='train', best_stat='loss')
-# predictions_stats(res_num=101, split='val', best_stat='loss')
-# predictions_stats(res_num=101, split='test', best_stat='loss')
+predictions_stats(split='train', best_stat='loss')
+predictions_stats(split='val', best_stat='loss')
+predictions_stats(split='test', best_stat='loss')
 
